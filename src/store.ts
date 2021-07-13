@@ -1,8 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import persistantStateSlice from './oh-items-module/slice';
+import persistantStateSlice from './modules/oh-indicators-list/store/slice';
 
 export const store = configureStore({
   reducer: {
-    persistent: persistantStateSlice,
+    indicators: persistantStateSlice,
   },
-})
+});
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

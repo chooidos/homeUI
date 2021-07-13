@@ -1,22 +1,18 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { getAllItems } from './oh-items-module/slice';
+import React from 'react';
+import { List } from './modules/oh-indicators-list';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-
-function App() {
-
-  const items = useSelector((state:any)=>state.persistent.items);
-  const dispatch = useDispatch();
-
-  useEffect(()=>{
-    dispatch(getAllItems());
-
-  },[]); //eslint-disable-line
-
+const App = () => {
   return (
-    <div className="App">
-      {items.map((item:any) => <div key={item.name}>{item.name}</div> )}
-    </div>
+    <Router>
+      <div className="App">
+        <Switch>
+          <Route path="">
+            <List />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 

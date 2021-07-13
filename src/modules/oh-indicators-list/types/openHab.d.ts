@@ -1,5 +1,13 @@
 export type OpenhabItemType = 'Group' | 'Switch' | 'Dimmer';
 
+interface IStateDescription {
+  minimum: number
+  maximum: number
+  step: number
+  pattern: string
+  readOnly: boolean
+}
+
 export interface IOpenhabItem {
   type: OpenhabItemType
   name: string
@@ -9,11 +17,5 @@ export interface IOpenhabItem {
   link: string
   state: string
   transformedState: string
-  stateDescription?: {
-    minmum: number
-    maximum: number
-    step: number
-    pattern: string
-    readOnly: boolean
-  }
+  stateDescription?: IStateDescription
 }

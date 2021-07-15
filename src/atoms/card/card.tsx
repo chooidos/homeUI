@@ -1,4 +1,4 @@
-import { ReactNode, forwardRef } from 'react';
+import { forwardRef, ComponentPropsWithoutRef, PropsWithChildren } from 'react';
 import styled from 'styled-components';
 
 const CardRoot = styled.article`
@@ -13,17 +13,27 @@ const Headline = styled.h2`
   font-weight: 700;
 `;
 
-interface Props {
+interface Props extends ComponentPropsWithoutRef<'div'> {
   title: string,
-  children: string | ReactNode,
+  key: string,
 }
 
-export const Card = forwardRef<HTMLInputElement, Omit<JSX.IntrinsicElements, 'ref'> & Props>(
-  ({ style, className, title, children }: Props, ref) => (
-    <CardRoot style={style} className={className} ref={ref}>
-      <Headline>{title}</Headline>
-      <div>
-        {children}
-      </div>
+// https://stackoverflow.com/questions/54654303/using-a-forwardref-component-with-children-in-typescript
+// still don't know what's going on with the types
+
+export const Card = forwardRef<ComponentPropsWithoutRef<'div'>, PropsWithChildren<Props>>(
+  ({ style, className, ...props}, ref) => (
+    <CardRoot
+      style={{ ...style}}
+      className={className}
+      ref={ref as any}
+      key={props.key}
+    >
+        <Headline>
+          {props.title}
+        </Headline>
+        <div>
+          {props.children}
+        </div>
     </CardRoot>
   ));

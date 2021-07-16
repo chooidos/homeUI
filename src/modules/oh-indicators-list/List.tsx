@@ -15,7 +15,7 @@ export const List = () => {
     <div className="App">
       {error}
       <ul>
-        {items.map(item => <li key={item.name}>{item.name}</li> )}
+        {Object.keys(items).map(itemKey => <li key={items[itemKey].name}>{items[itemKey].name}</li> )}
       </ul>
     </div>
   );
